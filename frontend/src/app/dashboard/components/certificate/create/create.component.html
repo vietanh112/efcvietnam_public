@@ -1,0 +1,89 @@
+<nz-modal  [nzWidth]="widthModal" [(nzVisible)]="checkVisibleCreate" nzClassName="modal-create-certificate"  nzTitle="Tạo mới Certificate" nzWidth="60%" (nzAfterOpen)="loadingOk()" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <ng-container *nzModalContent>
+        <h2>Main INFORMATION</h2>
+    <form action="" [formGroup] = 'createForm'>
+        <div class="form-main-if">
+            <div class="from-group" style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 10px;" for="">Information from<span >*</span></label>
+                <input  formControlName="inforCode" nz-input placeholder="Information from"  />
+            </div>
+            <div class="from-group" style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 10px;" for="">Certificate Code<span >*</span></label>
+                <input formControlName="cerCode" nz-input placeholder="Certificate Code"  />
+            </div>
+            <div class="from-group">
+                <label style="display: block; margin-bottom: 10px;" for="">License Code<span >*</span></label>
+                <input formControlName="licenseCode" nz-input placeholder="License Code"  />
+            </div>
+        </div>
+        <h2>Main ADDress</h2>
+        <div class="form-main-add">
+            <div class="from-group" style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 10px;" for="">Name<span >*</span></label>
+                <input formControlName="name" nz-input placeholder="Name"  />
+            </div>
+            <div class="from-group" style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 10px;" for="">Address<span >*</span></label>
+                <input formControlName="address" nz-input placeholder="Address"  />
+            </div>
+            <div class="from-group" style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 10px;" for="">Website</label>
+                <input formControlName="website" nz-input placeholder="Website"  />
+            </div>
+        </div>
+        <h2>CERTIFICATE DATA</h2>
+        <div class="form-cer-data">
+            <div class="from-group" style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 10px;" for="">Status<span >*</span></label>
+                <nz-select  formControlName="status" style="width: 100%;">
+                    <nz-option [nzValue]="item.id" [nzLabel]="item.name" *ngFor="let item of status"></nz-option>
+                </nz-select>
+            </div>
+            <div class="from-group" style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 10px;" for="">First Issue Date<span >*</span></label>
+                <nz-date-picker   formControlName="fstIssueDate" style="width: 100%;"></nz-date-picker>
+            </div>
+            <div class="from-group" style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 10px;" for="">Last Issue Date<span >*</span></label>
+                <nz-date-picker  formControlName="lstIssueDate" style="width: 100%;"></nz-date-picker>
+            </div>
+            <div class="from-group" style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 10px;" for="">Expiry Date<span >*</span></label>
+                <nz-date-picker  formControlName="expiryDate" style="width: 100%;"></nz-date-picker>
+            </div>
+            <div class="from-group" style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 10px;" for="">Standard</label>
+                <input formControlName="standard" nz-input placeholder="Standard"  />
+            </div>
+            <div class="from-group" style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 10px;" for="">Scope</label>
+                <input formControlName="scope" nz-input placeholder="Scope"  />
+            </div>
+            <div class="from-group" style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 10px;" for="">Quantity</label>
+                <input formControlName="quantity" nz-input placeholder="Quantity"  />
+            </div>
+            <div class="from-group" style="margin-bottom: 1rem;">
+                <label style="display: block; margin-bottom: 10px;" for="">Hectares</label>
+                <input formControlName="hectares" nz-input placeholder="Hectares"  />
+            </div>
+        </div>
+        <h2>OPTION</h2>
+        <div class="form-group" style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 10px;" for="">Hiển thị<span >*</span></label>
+            <nz-select  formControlName="show" style="width: 100%;">
+                <nz-option [nzValue]="item.id" [nzLabel]="item.name" *ngFor="let item of show"></nz-option>
+            </nz-select>
+        </div>
+        <!-- <div style="text-align: center; margin-top: 20px;">
+            <button nz-button (click)="createCertificate()"  nzType="primary" [disabled]="checkFormValid()">Đăng kí</button>
+        </div> -->
+    </form>
+        
+        
+    </ng-container>
+    <ng-container *nzModalFooter>
+      <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
+        <button nz-button nzType="primary" (click)="createCertificate()">Create Certificate</button>
+    </ng-container>
+</nz-modal>

@@ -1,0 +1,9 @@
+.ant-layout-footer{
+    background: #f8f8f8;
+}
+
+@media screen and (max-width: 767px) {
+    .ant-layout-footer {
+        padding: 0.75rem 1.25rem;
+    }
+}

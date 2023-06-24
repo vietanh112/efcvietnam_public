@@ -1,0 +1,165 @@
+<div class="style-loading" *ngIf="loadingState">
+  <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+</div>
+<nz-modal [(nzVisible)]="checkVisibleUpdate" nzClassName="modal-update-certificate" nzTitle="Chỉnh sửa Certificate" (nzOnCancel)="handleCancel()" (nzAfterOpen)="loadingOk()" (nzOnOk)="handleOk()" (nzAfterOpen) = "showContent()">
+    <ng-container *nzModalContent>
+        <form action="" [formGroup]="updateForm">
+            <div class="form-group" nz-row>
+                <div nz-col nzSpan="7">
+                  <label for="" class="fw-bold">Information Code<span class="color-red">*</span></label>
+                </div>
+                <div nz-col nzSpan="17">
+                  <nz-input-group>
+                    <input type="text" nz-input formControlName="inforCode"/>
+                  </nz-input-group>
+                </div>
+              </div>
+              <div class="form-group" nz-row>
+                <div nz-col nzSpan="7">
+                  <label for="" class="fw-bold">Certificate Code<span class="color-red">*</span></label>
+                </div>
+                <div nz-col nzSpan="17">
+                  <nz-input-group>
+                    <input type="text" nz-input  formControlName="cerCode"/>
+                  </nz-input-group>
+                </div>
+              </div>
+              <div class="form-group" nz-row>
+                <div nz-col nzSpan="7">
+                  <label for="" class="fw-bold">License Code<span class="color-red">*</span></label>
+                </div>
+                <div nz-col nzSpan="17">
+                  <nz-input-group>
+                    <input type="text" nz-input  formControlName="licenseCode"/>
+                  </nz-input-group>
+                </div>
+              </div>
+              <div class="form-group" nz-row>
+                <div nz-col nzSpan="7">
+                  <label for="" class="fw-bold">Name<span class="color-red">*</span></label>
+                </div>
+                <div nz-col nzSpan="17">
+                  <nz-input-group>
+                    <input type="text" nz-input   formControlName="name"/>
+                  </nz-input-group>
+                </div>
+              </div>
+              <div class="form-group" nz-row>
+                  <div nz-col nzSpan="7">
+                      <label for="" class="fw-bold">Address<span class="color-red">*</span></label>
+                    </div>
+                    <div nz-col nzSpan="17">
+                      <nz-input-group>
+                        <input type="text" nz-input  formControlName="address"/>
+                      </nz-input-group>
+                    </div>
+              </div>
+              <div class="form-group" nz-row>
+                  <div nz-col nzSpan="7">
+                      <label for="" class="fw-bold">Website</label>
+                    </div>
+                    <div nz-col nzSpan="17">
+                      <nz-input-group>
+                        <input type="text" nz-input formControlName="website"/>
+                      </nz-input-group>
+                  </div>
+              </div>
+              <div class="form-group" nz-row>
+                  <div nz-col nzSpan="7">
+                    <label for="" class="fw-bold">Trạng thái<span class="color-red">*</span></label>
+                  </div>
+                  <div nz-col nzSpan="17">
+                      <nz-select style="width: 100%;" formControlName="status">
+                          <nz-option [nzValue]="item.id" [nzLabel]="item.name" *ngFor="let item of status"></nz-option>
+                        </nz-select>
+                  </div>
+              </div>
+              <div class="form-group" nz-row>
+                  <div nz-col nzSpan="7">
+                    <label for="" class="fw-bold">First Issue Date<span class="color-red">*</span></label>
+                  </div>
+                  <div nz-col nzSpan="17">
+                    <nz-input-group>
+                      <nz-date-picker formControlName="fstIssueDate" style="width: 100%;"></nz-date-picker>
+                    </nz-input-group>
+                  </div>
+              </div>
+              <div class="form-group" nz-row>
+                  <div nz-col nzSpan="7">
+                    <label for="" class="fw-bold">Last Issue Date<span class="color-red">*</span></label>
+                  </div>
+                  <div nz-col nzSpan="17">
+                    <nz-input-group>
+                      <nz-date-picker formControlName="lstIssueDate" style="width: 100%;"></nz-date-picker>
+                    </nz-input-group>
+                  </div>
+              </div>
+              <div class="form-group" nz-row>
+                  <div nz-col nzSpan="7">
+                    <label for="" class="fw-bold">Expiry Date<span class="color-red">*</span></label>
+                  </div>
+                  <div nz-col nzSpan="17">
+                    <nz-input-group>
+                      <nz-date-picker formControlName="expiryDate" style="width: 100%;"></nz-date-picker>
+                    </nz-input-group>
+                  </div>
+              </div>
+              <div class="form-group" nz-row>
+                <div nz-col nzSpan="7">
+                  <label for="" class="fw-bold">Standard </label>
+                </div>
+                <div nz-col nzSpan="17">
+                  <nz-input-group>
+                    <input type="text" nz-input  formControlName="standard"/>
+                  </nz-input-group>
+                </div>
+            </div>
+              <div class="form-group" nz-row>
+                  <div nz-col nzSpan="7">
+                    <label for="" class="fw-bold">Scope </label>
+                  </div>
+                  <div nz-col nzSpan="17">
+                    <nz-input-group>
+                      <input type="text" nz-input  formControlName="scope"/>
+                    </nz-input-group>
+                  </div>
+              </div>
+              <div class="form-group" nz-row>
+                  <div nz-col nzSpan="7">
+                    <label for="" class="fw-bold">Quantity </label>
+                  </div>
+                  <div nz-col nzSpan="17">
+                    <nz-input-group>
+                      <input type="text" nz-input formControlName="quantity"/>
+                    </nz-input-group>
+                  </div>
+              </div>
+              <div class="form-group" nz-row>
+                  <div nz-col nzSpan="7">
+                    <label for="" class="fw-bold">Hectares </label>
+                  </div>
+                  <div nz-col nzSpan="17">
+                    <nz-input-group>
+                      <input type="text" nz-input  formControlName="hectares"/>
+                    </nz-input-group>
+                  </div>
+              </div>
+              <div class="form-group" nz-row>
+                <div nz-col nzSpan="7">
+                  <label for="" class="fw-bold">Hiển thị<span class="color-red">*</span></label>
+                </div>
+                <div nz-col nzSpan="17">
+                    <nz-select style="width: 100%;" formControlName="show">
+                        <nz-option [nzValue]="item.id" [nzLabel]="item.name" *ngFor="let item of show"></nz-option>
+                      </nz-select>
+                </div>
+            </div>
+        </form>
+        
+        
+    </ng-container>
+    <ng-container *nzModalFooter>
+      <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
+        <button nz-button nzType="primary" (click)="handleOk()">Update Certificate</button>
+    </ng-container>
+</nz-modal>

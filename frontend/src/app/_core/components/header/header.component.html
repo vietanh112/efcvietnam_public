@@ -1,0 +1,39 @@
+<nz-header nzTheme="light">
+    <div class="container">
+      <div class="div-flex">
+        <div class="left">
+          <div class="logo">
+            <a href="#" style="height: 100%;">
+              <img style="height: 100%;" src="../../../../assets/images/logo.jpg" alt="logo">
+            </a>
+          </div>
+          <ul nz-menu nzMode="horizontal" *ngIf="currentUser">
+            <li nz-menu-item [nzSelected]="this.router.url.indexOf('admin/certificate') != -1">
+              <a [routerLink]="['/admin', 'certificate']">
+                Certificate
+              </a>
+            </li>
+
+            
+          </ul>
+        </div>
+        <div class="right" *ngIf="currentUser">
+          <button nz-button nz-dropdown [nzDropdownMenu]="menu2"  nzPlacement="bottomRight">
+            <span nz-icon nzType="user"></span>
+          </button>
+          <nz-dropdown-menu #menu2="nzDropdownMenu"  >
+            <ul nz-menu>
+              <!-- <li *ngIf="currentUser.roleId == 1" nz-menu-item  [routerLink]="['/manage']"><span style="margin-right: 7px;" nz-icon nzType="ordered-list" nzTheme="outline"></span>Quản lý User</li> -->
+              <li nz-menu-item (click)="showModalChangePassword()"><span style="margin-right: 7px;" nz-icon nzType="undo" nzTheme="outline"></span>Change Password</li>
+              <li *ngIf="currentUser.roleId == 1" nz-menu-item  [routerLink]="['/auth', 'register']"><span style="margin-right: 7px;" nz-icon nzType="user-add" nzTheme="outline"></span>Register Account</li>
+              <li nz-menu-item  [routerLink]="['/auth', 'logout']"><span style="margin-right: 7px;" nz-icon nzType="logout" nzTheme="outline"></span>Logout</li>
+            </ul>
+          </nz-dropdown-menu>
+        </div>
+      </div>
+    </div>
+</nz-header>
+
+<app-auth-change-password *ngIf="currentUser" [(checkVisibleChangePassword)]=checkVisibleChangePassword (checkVisibleChangePasswordChange) = "changePassword($event)" [idUpdate]=data></app-auth-change-password>
+
+<!-- <app-auth-infor *ngIf="currentUser" [(checkVisibleInfor)]=checkVisibleInfor (checkVisibleInforChange) = "changeInfor($event)" [idUpdate]=data></app-auth-infor> -->

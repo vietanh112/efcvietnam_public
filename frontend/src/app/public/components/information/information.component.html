@@ -1,0 +1,86 @@
+<div class="style-loading" *ngIf="loadingState">
+    <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+  </div>
+<div class="infor-content">
+    <div class="search">
+        <div class="form-group">
+            <nz-input-group nzSearch [nzSize]="sizeSearch" [nzAddOnAfter]="suffixButton">
+                <input type="text" nz-input placeholder="Certificate No" [(ngModel)] = "certificateCode"/>
+            </nz-input-group>
+            <ng-template #suffixButton>
+            <button nz-button nzType="primary" [nzSize]="sizeSearch" nzSearch (click)="searchCertificate()">Tìm kiếm</button>
+            </ng-template>
+        </div>
+    </div>
+    <div class="infor-cer" *ngIf="statusSearch">
+        <h1>CERTIFICATE</h1>
+        <div class="main-infor">
+            <h3>MAIN INFORMATION</h3>
+            <div>
+                <label for="">Information from:</label>
+                <div class="text">{{certificate.informationCode}}</div>
+            </div>
+            <div>
+                <label for="">Certificate Code:</label>
+                <div class="text">{{certificate.certificateCode}}</div>
+            </div>
+            <div>
+                <label for="">License Code:</label>
+                <div class="text">{{certificate.licenseCode}}</div>
+            </div>
+        </div>
+
+        <div class="main-infor">
+            <h3>MAIN ADDRESS</h3>
+            <div>
+                <label for="">Name:</label>
+                <div class="text">{{certificate.name}}</div>
+            </div>
+            <div>
+                <label for="">Address:</label>
+                <div class="text">{{certificate.address}}</div>
+            </div>
+            <div>
+                <label for="">Website:</label>
+                <div class="text">{{certificate.website}}</div>
+            </div>
+        </div>
+        <div class="main-infor">
+            <h3>CERTIFICATE DATA</h3>
+            <div>
+                <label for="">Status:</label>
+                <div class="text" *ngIf="certificate.status == 0">Invalid</div>
+                <div class="text" *ngIf="certificate.status == 1">Valid</div>
+            </div>
+            <div>
+                <label for="">First Issue Date:</label>
+                <div class="text">{{certificate.fstIssueDate | date: 'dd-MM-yyyy'}}</div>
+            </div>
+            <div>
+                <label for="">Last Issue Date:</label>
+                <div class="text">{{certificate.lstIssueDate | date: 'dd-MM-yyyy'}}</div>
+            </div>
+            <div>
+                <label for="">Expiry Date:</label>
+                <div class="text">{{certificate.expiryDate | date: 'dd-MM-yyyy'}}</div>
+            </div>
+            <div>
+                <label for="">Standard:</label>
+                <div class="text">{{certificate.standard}}</div>
+            </div>
+            <div>
+                <label for="">Scope:</label>
+                <div class="text">{{certificate.scope}}</div>
+            </div>
+            <div>
+                <label for="">Quantity:</label>
+                <div class="text">{{certificate.quantity}}</div>
+            </div>
+            <div>
+                <label for="">Hectares:</label>
+                <div class="text">{{certificate.hectares}}</div>
+            </div>
+        </div>
+    </div>
+    <nz-empty *ngIf="!statusSearch"></nz-empty>
+</div>

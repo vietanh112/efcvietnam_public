@@ -1,0 +1,80 @@
+<nz-modal [nzWidth]="widthModal" [(nzVisible)]="checkVisibleInfor" nzClassName="modal-infor-certificate" [nzTitle]="'Thông tin Certificate'" (nzAfterOpen)="loadingOk()" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <ng-container *nzModalContent>
+      <div>
+        <nz-table #nzTable [nzData]="['']" [nzSize]="sizeTable" nzTableLayout="fixed" [nzShowPagination]="false" [nzScroll]="{ y: '350px' }">
+          <tbody>
+            <tr>
+                <td class="fw-bold">Infomation Code</td>
+                <td>{{dataCertificate.informationCode}}</td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Certificate Code</td>
+                <td>{{dataCertificate.certificateCode}}</td>
+            </tr>
+            <tr>
+                <td class="fw-bold">License Code</td>
+                <td>{{dataCertificate.licenseCode}}</td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Name</td>
+                <td>{{dataCertificate.name}}</td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Address</td>
+                <td>{{dataCertificate.address}}</td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Website</td>
+                <td>{{dataCertificate.website}}</td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Trạng thái</td>
+                <td *ngIf="dataCertificate.status == 0"><nz-tag [nzColor]="'red'">Invalid</nz-tag></td>
+                <td *ngIf="dataCertificate.status == 1"><nz-tag [nzColor]="'green'">Valid</nz-tag></td>
+            </tr>
+            <tr>
+                <td class="fw-bold">First Issue Date</td>
+                <td>{{dataCertificate.fstIssueDate | date: 'dd-MM-yyyy'}}</td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Last Issue Date</td>
+                <td>{{dataCertificate.lstIssueDate | date: 'dd-MM-yyyy'}}</td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Expiry Date</td>
+                <td>{{dataCertificate.expiryDate | date: 'dd-MM-yyyy'}}</td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Standard</td>
+                <td>{{dataCertificate.standard}}</td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Scope</td>
+                <td>{{dataCertificate.scope}}</td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Quantity</td>
+                <td>{{dataCertificate.quantity}}</td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Hectares</td>
+                <td>{{dataCertificate.hectares}}</td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Created At</td>
+                <td>{{dataCertificate.createdAt | date: 'dd-MM-yyyy HH:mm:ss'}}</td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Updated At</td>
+                <td>{{dataCertificate.updatedAt | date: 'dd-MM-yyyy HH:mm:ss'}}</td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Hiển thị</td>
+                <td *ngIf="dataCertificate.show == '0'"><nz-tag [nzColor]="'red'">Inactive</nz-tag></td>
+                <td *ngIf="dataCertificate.show == '1'"><nz-tag [nzColor]="'green'">Active</nz-tag></td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+    </ng-container>
+</nz-modal>

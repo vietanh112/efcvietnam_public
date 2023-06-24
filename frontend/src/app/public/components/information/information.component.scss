@@ -1,0 +1,68 @@
+.infor-content{
+    max-width: 90%;
+    margin: 0 auto;
+    margin-top: -10%;
+    background-color: #ffffff;
+    padding: 1.75rem 2.5rem;
+}
+h1{font-size: 2.25rem; color: #1e73be;margin: 0 0 1rem;}
+h3{font-size: 1.25rem;color: #333;margin: 0 0 0.75rem;}
+h1, h3{
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.main-infor{margin-bottom: 1.5rem;
+    >div{
+        display: flex;
+        margin-bottom: 0.5rem;
+        label {
+            width: 25%;
+            text-align: right;
+            font-weight: 600;
+        }
+        .text{
+            width: 75%;
+            padding-left: 0.75rem;
+        }
+    }
+}
+.infor-content .search {
+    margin-bottom: 1.25rem;
+    display: flex;
+    justify-content: flex-end;
+    .form-group {
+        max-width: 350px;
+        margin-bottom: 0;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .infor-content{
+        max-width: 100%;
+        margin-top: 0;
+        background-color: #ffffff;
+        padding: 1.25rem 1.75rem;
+    }
+    .infor-content .search {
+        justify-content: flex-start;
+    }
+}
+
+@media screen and (max-width: 415px) {
+    .infor-content {
+        padding: 1.25rem;
+        .search {
+            margin-bottom: 2rem;
+            .form-group {
+                width: 100%;
+                max-width: 100%;
+                input{
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    h1{font-size: 2rem; margin: 0 0 0.75rem;}
+    h3{font-size: 1.15rem;margin: 0 0 0.5rem;}
+}

@@ -1,0 +1,58 @@
+.logo {
+    height: 64px;
+    float: left;
+    >a {
+      display: flex;
+      justify-content: center;
+      padding: 1px;
+      img{
+        max-width: 100%;
+      }
+    }
+  }
+
+  [nz-menu] {
+    line-height: 64px;
+  }
+  .ant-menu{
+    display: flex;
+  }
+  .ant-layout-header{
+    background: #fff;
+    
+    
+  }
+  .ant-menu-item{
+    >a{
+      display: block;
+      font-weight: 600;
+    }
+  }
+
+  .div-flex{
+    display: flex;
+    justify-content: space-between;
+    .right{
+      .ant-btn{
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        padding:  4px 11px;
+        .anticon-user{
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .ant-layout-header {
+      padding: 0 20px;
+    }
+    .logo {
+      a {
+        justify-content: flex-start;
+      }
+    }
+    
+  }

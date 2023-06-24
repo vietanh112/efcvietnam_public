@@ -1,0 +1,89 @@
+<div class="style-loading" *ngIf="loadingState">
+    <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
+  </div>
+  
+  <div class="inner-content">
+      <div style="margin: 20px 0;display: flex;justify-content: space-between;">
+          <div style="display: flex;align-items: center;">
+            <span *ngIf="reponsive.labelSearch" class="fw-bold">Tìm kiếm: </span>
+            <div class="input-search" style="margin-left: 10px;">
+              <input nz-input placeholder="Từ khóa" [(ngModel)]="search.keyword" nzSize="default" />
+            </div>
+            <div style="margin-left: 10px;" *ngIf="reponsive.searchStatus">
+              <nz-select style="width: 120px;" [(ngModel)]="search.status" nzPlaceHolder="Trạng thái">
+                <nz-option [nzValue]="data.id" [nzLabel]="data.name" *ngFor="let data of status"></nz-option>
+              </nz-select>
+            </div>
+            <div class="search-top">
+              <button nz-button nzType="primary" *ngIf="reponsive.search" (click)="getList()">
+                <span nz-icon nzType="search"></span>
+                Tìm kiếm
+              </button>
+              <button nz-button nzType="primary" *ngIf="!reponsive.search" (click)="getList()">
+                <span nz-icon nzType="search"></span>
+              </button>
+            </div>
+          </div>
+          <div>
+            <button *ngIf="currentUser?.roleId < 3 && reponsive.create" nz-button [nzType]="'primary'" [nzSize]="sizeButton" (click)="showModalCreate()" nzDanger><span>Tạo mới Certificate</span></button>
+            <button *ngIf="currentUser?.roleId < 3 && !reponsive.create" nz-button [nzType]="'primary'" [nzSize]="sizeButton" (click)="showModalCreate()" nzDanger><span nz-icon nzType="plus" nzTheme="outline"></span></button>
+          </div>
+      </div>
+      <nz-table #nzTable [nzData]="listCertificate" nzTableLayout="fixed" nzShowSizeChanger [nzPageSizeOptions]="[10, 20, 50]" [nzPageIndex]="page"  [nzShowTotal]="rangeTemplate" (nzPageSizeChange)="pageChange($event)">
+          <thead>
+            <tr>
+              <th class="text-center" style="width: 80px;">STT</th>
+              <th nzWidth="160px" class="text-center">Certificate Code</th>
+              <th *ngIf="reponsive.name">Name</th>
+              <th nzWidth="100px" *ngIf="reponsive.status" class="text-center">Status</th>
+              <th class="text-center" nzWidth="120px">Options</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of nzTable.data; let i = index">
+              <td class="text-center">{{ i + 1}}</td>
+              <td class="text-center"  (click)="showModalInfor(data)"><a>{{ data.certificateCode }}</a></td>
+              <td *ngIf="reponsive.name">{{ data.name }}</td>
+              <td *ngIf="reponsive.status" class="text-center">
+                <nz-tag [nzColor]="'red'" *ngIf="data.status == 0">Invalid</nz-tag>
+                <nz-tag [nzColor]="'green'" *ngIf="data.status == 1">Valid</nz-tag>
+              </td>
+              <td class="text-center">
+                <button nz-button nz-dropdown [nzDropdownMenu]="menu4" style="border-radius: 50%;">
+                  
+                  <i nz-icon nzType="ellipsis" nzTheme="outline"></i>
+                </button>
+                <nz-dropdown-menu #menu4="nzDropdownMenu">
+                  <ul nz-menu>
+                    <li nz-menu-item (click)="showModalInfor(data)">
+                      <span style="margin-right: 12px;"><i nz-icon nzType="info" nzTheme="outline"></i></span>
+                      Thông tin Certificate
+                    </li>
+                    <li *ngIf="currentUser?.roleId < 3" nz-menu-item (click)="showModalUpdate(data)">
+                      <span style="margin-right: 12px;"><i nz-icon nzType="edit" nzTheme="outline"></i></span>
+                      Chỉnh sửa Certificate
+                    </li>
+                    <li  nz-menu-item (click)="showModalQrcode(data)">
+                      <span style="margin-right: 12px;" nz-icon nzType="qrcode" nzTheme="outline"></span>
+                      Xuất QR Code
+                    </li>
+                    <li *ngIf="currentUser?.roleId < 3" nz-menu-item (click)="showConfirmDelete(data.id)">
+                      <span style="margin-right: 12px;"><i nz-icon nzType="rest" nzTheme="outline"></i></span>
+                      Xóa Certificate
+                    </li>
+                  </ul>
+                </nz-dropdown-menu>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+        <!-- <ng-template #totalTemplate let-total> Total {{listHosting.length}} / {{ totalList }} items </ng-template> -->
+        <ng-template #rangeTemplate let-range="range" let-total>
+          {{ range[0] }}-{{ range[1] }} of <span class="fw-bold">{{ totalList }}</span> items
+        </ng-template>
+        
+  </div>
+  <admin-certificate-modal-infor [(checkVisibleInfor)]=checkVisibleInfor  [dataCertificate]=certificate></admin-certificate-modal-infor>
+  <admin-certificate-modal-create [(checkVisibleCreate)]=checkVisibleCreate (checkVisibleCreateChange) = "createCertificate($event)"></admin-certificate-modal-create>
+  <admin-certificate-modal-update [(checkVisibleUpdate)]=checkVisibleUpdate (checkVisibleUpdateChange) = "updateCertificate($event)" [dataCertificate]=certificate></admin-certificate-modal-update>
+  <admin-certificate-modal-qrcode [(checkVisibleQrcode)]=checkVisibleQrcode  [certificate]='certificate'></admin-certificate-modal-qrcode>
