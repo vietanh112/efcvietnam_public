@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiServer: {
-      ssl: false,
+      ssl: true,
       host: 'verifys-api.efcvietnam.net',
       prefix: '',
       paths: {
@@ -31,7 +31,7 @@ export const environment = {
       }
   },
   frontEnd: {
-    ssl: false,
+    ssl: true,
     host: 'verifys.efcvietnam.net',
     port: ''
   }
