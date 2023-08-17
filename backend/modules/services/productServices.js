@@ -363,6 +363,62 @@ const productServices = {
             return log;
         }
     },
+
+    searchCertificateCode: async (certificateCode, passwordQrcode) => {
+        let log = {
+            status: 0,
+            code: 204,
+            msg: 'error',
+            data: null
+        };
+        if(!certificateCode) return
+        try {
+            let checkPassword = await coreModels.inforCompany.count({
+                where: {
+                    PASSWORD_QRCODE: passwordQrcode,
+                    CERTIFICATE_CODE: certificateCode
+                }
+            })
+            if(checkPassword == 0){
+                log.code = 201;
+                log.msg = 'Password not found code not exits';
+                return log
+            }
+            console.log(passwordQrcode);
+            let total = await coreModels.inforCompany.count({
+                where: {
+                    CERTIFICATE_CODE: certificateCode
+                }
+            })
+            if(total == 0){
+                log.code = 202;
+                log.msg = 'Certificate code not exits';
+                return log
+            }
+            data = await coreModels.inforCompany.findAll({
+                where: {
+                    [Op.and]: {
+                        PASSWORD_QRCODE: passwordQrcode,
+                        CERTIFICATE_CODE: certificateCode,
+                        SHOW: 1
+                    }
+                }
+            })
+            if(data.length > 0) {
+                log.status = 1;
+                log.code = 200;
+                log.msg = 'success';
+                log.data = new CertificateModel(data[0].dataValues);
+                log.data.id = null;
+                log.data.createdAt = null;
+                log.data.updatedAt = null;
+            }
+            return log
+        } catch (error) {
+            console.log(error);
+            return log
+        }
+    },
 }
 
 module.exports = productServices

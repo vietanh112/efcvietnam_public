@@ -90,8 +90,59 @@ export class publicInformation implements OnInit, AfterViewInit {
             if(this.certificateCode == null || this.certificateCode == '' || this.certificateCode == undefined){
                 return
             }
-            this.searchCertificate();
+            this.getCertificate();
         }, 0);
+    }
+
+    getCertificate() {
+        if(!this.certificateCode) {
+            return
+        }
+
+        this.loadingState = true;
+
+        this.publicService.getCertificateCode(this.certificateCode).subscribe(res => {
+            this.loadingState = false;
+            let eventNoti: any = {
+                id: '',
+                message: 'success',
+                title: 'Tìm kiếm Thành công'
+            }
+    
+            if(res.code == 200 && res.status == 1) {
+                this.certificate.informationCode = res.data.informationCode;
+                this.certificate.certificateCode = res.data.certificateCode;
+                this.certificate.licenseCode = res.data.licenseCode;
+                this.certificate.name = res.data.name;
+                this.certificate.address = res.data.address;
+                this.certificate.website = res.data.website;
+                this.certificate.status = res.data.status;
+                this.certificate.fstIssueDate = res.data.fstIssueDate;
+                this.certificate.lstIssueDate = res.data.lstIssueDate;
+                this.certificate.expiryDate = res.data.expiryDate;
+                this.certificate.standard = res.data.standard;
+                this.certificate.scope = res.data.scope;
+                this.certificate.quantity = res.data.quantity;
+                this.certificate.hectares = res.data.hectares;
+
+                eventNoti.id = res.data.certificateCode;
+
+            }
+            
+            else if (res.code == 202 && res.status == 0) {
+                eventNoti.message = 'warning';
+                eventNoti.title = 'Certificate Code không tồn tại';
+                this.certificateNoData();
+            }
+            else {
+                eventNoti.message = 'error';
+                eventNoti.title = 'Tìm kiếm Thất bại';
+                this.certificateNoData();
+            }
+            this.location.replaceState(this.router.url.split('?')[0], `id=${this.certificateCode}`);
+            
+            return this.notification(eventNoti);
+        })
     }
 
     searchCertificate() {
@@ -101,7 +152,7 @@ export class publicInformation implements OnInit, AfterViewInit {
 
         this.loadingState = true;
 
-        this.publicService.getCertificateCode(this.certificateCode).subscribe(res => {
+        this.publicService.searchCertificate(this.certificateCode, this.passwordQrcode).subscribe(res => {
             this.loadingState = false;
             let eventNoti: any = {
                 id: '',
