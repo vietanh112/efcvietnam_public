@@ -53,11 +53,17 @@ export class publicInformation implements OnInit, AfterViewInit {
                 private modal: NzModalService,
                 public activatedRoute: ActivatedRoute,
                 private location: Location,
-                private router: Router,) {
+                private router: Router,
+                private route: ActivatedRoute,) {
                     this.activatedRoute.queryParams.subscribe(params => {
                         this.routeParams = params;
+                        this.certificateCode='';
+                        this.passwordQrcode = '';
                         if (typeof (params['id']) !== 'undefined') {
                             this.certificateCode = decodeURIComponent(params['id']);
+                        }
+                        if (typeof (params['passwordQrcode']) !== 'undefined') {
+                            this.passwordQrcode = decodeURIComponent(params['passwordQrcode']);
                         }
                     })
                 }
@@ -81,6 +87,9 @@ export class publicInformation implements OnInit, AfterViewInit {
     }
     ngAfterViewInit(): void {
         setTimeout(() => {
+            if(this.certificateCode == null || this.certificateCode == '' || this.certificateCode == undefined ||this.passwordQrcode == null || this.passwordQrcode == '' || this.passwordQrcode == undefined){
+                return
+            }
             this.searchCertificate();
         }, 0);
     }
@@ -134,7 +143,7 @@ export class publicInformation implements OnInit, AfterViewInit {
                 eventNoti.title = 'Tìm kiếm Thất bại';
                 this.certificateNoData();
             }
-            this.location.replaceState(this.router.url.split('?')[0], `id=${this.certificateCode}`);
+            this.location.replaceState(this.router.url.split('?')[0], `id=${this.certificateCode}&passwordQrcode=${this.passwordQrcode}`);
             
             return this.notification(eventNoti);
         })
@@ -190,7 +199,6 @@ export class publicInformation implements OnInit, AfterViewInit {
       }
 
       handleOk(): void {
-        
         if(this.passwordQrcode == null || this.passwordQrcode == ''){
             this.showValid1 = true;
             setTimeout(() => {
