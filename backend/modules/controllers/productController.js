@@ -86,8 +86,8 @@ module.exports = {
 
     getCertificateCode: async (req, res) => {
         const certificateCode = req.params.certificateCode;
-        const passwordQrcode =  req.params.passwordQrcode;
-        const data = await productServices.getCertificateCode(certificateCode, passwordQrcode);
+        // const passwordQrcode =  req.params.passwordQrcode;
+        const data = await productServices.getCertificateCode(certificateCode);
         let response = {
             status: 1,
             code: 200,

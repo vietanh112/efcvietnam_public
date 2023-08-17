@@ -89,6 +89,6 @@ app.route(`/admin/certificate/reset-password-qrcode/:certificateId`).patch([], a
     return productController.resetPasswordQrcode(req, res);
 })
 //public
-app.route(`/public/certificate/:certificateCode/:passwordQrcode`).get([], async(req, res) => {
+app.route(`/public/certificate/:certificateCode`).get([], async(req, res) => {
     return productController.getCertificateCode(req, res);
 })

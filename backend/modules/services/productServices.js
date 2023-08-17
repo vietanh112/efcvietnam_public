@@ -262,26 +262,27 @@ const productServices = {
 
     //public 
 
-    getCertificateCode: async (certificateCode, passwordQrcode) => {
+    getCertificateCode: async (certificateCode) => {
         let log = {
             status: 0,
             code: 204,
             msg: 'error',
             data: null
         };
-        if(!certificateCode || !passwordQrcode) return
+        if(!certificateCode) return
         try {
-            let checkPassword = await coreModels.inforCompany.count({
-                where: {
-                    PASSWORD_QRCODE: passwordQrcode,
-                    CERTIFICATE_CODE: certificateCode
-                }
-            })
-            if(checkPassword == 0){
-                log.code = 201;
-                log.msg = 'Password not found code not exits';
-                return log
-            }
+            // let checkPassword = await coreModels.inforCompany.count({
+            //     where: {
+            //         PASSWORD_QRCODE: passwordQrcode,
+            //         CERTIFICATE_CODE: certificateCode
+            //     }
+            // })
+            // if(checkPassword == 0){
+            //     log.code = 201;
+            //     log.msg = 'Password not found code not exits';
+            //     return log
+            // }
+            // console.log(passwordQrcode);
             let total = await coreModels.inforCompany.count({
                 where: {
                     CERTIFICATE_CODE: certificateCode
@@ -309,7 +310,6 @@ const productServices = {
                 log.data.createdAt = null;
                 log.data.updatedAt = null;
             }
-
             return log
         } catch (error) {
             console.log(error);

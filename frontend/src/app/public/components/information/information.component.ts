@@ -90,7 +90,7 @@ export class publicInformation implements OnInit, AfterViewInit {
             if(this.certificateCode == null || this.certificateCode == '' || this.certificateCode == undefined){
                 return
             }
-            this.showModal();
+            this.searchCertificate();
         }, 0);
     }
 
@@ -101,7 +101,7 @@ export class publicInformation implements OnInit, AfterViewInit {
 
         this.loadingState = true;
 
-        this.publicService.getCertificateCode(this.certificateCode, this.passwordQrcode).subscribe(res => {
+        this.publicService.getCertificateCode(this.certificateCode).subscribe(res => {
             this.loadingState = false;
             let eventNoti: any = {
                 id: '',
