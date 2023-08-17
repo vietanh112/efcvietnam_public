@@ -87,10 +87,10 @@ export class publicInformation implements OnInit, AfterViewInit {
     }
     ngAfterViewInit(): void {
         setTimeout(() => {
-            if(this.certificateCode == null || this.certificateCode == '' || this.certificateCode == undefined ||this.passwordQrcode == null || this.passwordQrcode == '' || this.passwordQrcode == undefined){
+            if(this.certificateCode == null || this.certificateCode == '' || this.certificateCode == undefined){
                 return
             }
-            this.searchCertificate();
+            this.showModal();
         }, 0);
     }
 
@@ -143,7 +143,7 @@ export class publicInformation implements OnInit, AfterViewInit {
                 eventNoti.title = 'Tìm kiếm Thất bại';
                 this.certificateNoData();
             }
-            this.location.replaceState(this.router.url.split('?')[0], `id=${this.certificateCode}&passwordQrcode=${this.passwordQrcode}`);
+            this.location.replaceState(this.router.url.split('?')[0], `id=${this.certificateCode}`);
             
             return this.notification(eventNoti);
         })
@@ -198,7 +198,7 @@ export class publicInformation implements OnInit, AfterViewInit {
         this.isVisible = true;
       }
 
-      handleOk(): void {
+      handleOk(){
         if(this.passwordQrcode == null || this.passwordQrcode == ''){
             this.showValid1 = true;
             setTimeout(() => {

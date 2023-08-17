@@ -46,7 +46,7 @@ export class AdminCertificateModalQrcode implements OnInit, AfterViewInit {
       else {
         this.url = `http://${environment.frontEnd.host}/information?id=`;
       }
-      this.url = this.url + this.certificate.certificateCode + "&passwordQrcode=" + this.certificate.passwordQrcode;
+      this.url = this.url + this.certificate.certificateCode;
       this.passwordQrcode = this.certificate.passwordQrcode;
       
     }
