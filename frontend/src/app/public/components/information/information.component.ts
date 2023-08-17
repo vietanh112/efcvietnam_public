@@ -16,6 +16,9 @@ import { fromEvent, Observable, Subscription } from "rxjs";
 export class publicInformation implements OnInit, AfterViewInit {
     certificateCode: string = null;
     loadingState: boolean = false;
+    isVisible:boolean = false;
+    passwordQrcode: string = '';
+    showValid1: boolean = false;
 
     certificate: any = {
         id: '',
@@ -89,7 +92,7 @@ export class publicInformation implements OnInit, AfterViewInit {
 
         this.loadingState = true;
 
-        this.publicService.getCertificateCode(this.certificateCode).subscribe(res => {
+        this.publicService.getCertificateCode(this.certificateCode, this.passwordQrcode).subscribe(res => {
             this.loadingState = false;
             let eventNoti: any = {
                 id: '',
@@ -114,11 +117,14 @@ export class publicInformation implements OnInit, AfterViewInit {
                 this.certificate.hectares = res.data.hectares;
 
                 eventNoti.id = res.data.certificateCode;
-                
-                
 
             }
             else if (res.code == 201 && res.status == 0) {
+                eventNoti.message = 'warning';
+                eventNoti.title = 'Password QrCode không tồn tại';
+                this.certificateNoData();
+            }
+            else if (res.code == 202 && res.status == 0) {
                 eventNoti.message = 'warning';
                 eventNoti.title = 'Certificate Code không tồn tại';
                 this.certificateNoData();
@@ -166,6 +172,38 @@ export class publicInformation implements OnInit, AfterViewInit {
             if(method == 'success') {
                 this.statusSearch =  true;
             }
-        }, 700);
+        }, 1500);
     }
+
+    showModal(): void {
+        let eventNoti: any = {
+            id: '',
+            message: 'success',
+            title: 'Tìm kiếm Thành công'
+        }
+        if(this.certificateCode == null || this.certificateCode == ''){
+            eventNoti.message = 'error';
+            eventNoti.title = 'Bạn phải nhập Certificate No';
+            return this.notification(eventNoti);
+        }
+        this.isVisible = true;
+      }
+
+      handleOk(): void {
+        
+        if(this.passwordQrcode == null || this.passwordQrcode == ''){
+            this.showValid1 = true;
+            setTimeout(() => {
+                this.showValid1 = false;
+            }, 3000);
+            return;
+        }
+        this.searchCertificate();
+        this.isVisible = false;
+      }
+    
+      handleCancel(): void {
+        this.passwordQrcode= '';
+        this.isVisible = false;
+      }
 }

@@ -7,6 +7,17 @@ const CertificateModel = require('../entities/certificate');
 const productServices = {
 
     //admin
+    createPasswordQrcode: async(length) => {
+        let result = '';
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        const charactersLength = characters.length;
+        let counter = 0;
+        while (counter < length) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            counter += 1;
+        }
+        return result;
+    },
 
     createCertificate: async (body) => {
         let log = {
@@ -29,6 +40,9 @@ const productServices = {
                 return log
             }
 
+            let passwordQrcode =  "EFC" + await productServices.createPasswordQrcode(7);
+
+            console.log(passwordQrcode);
             const data = await coreModels.inforCompany.create(
                 {
                     INFORMATION_CODE: body.inforCode,
@@ -46,6 +60,7 @@ const productServices = {
                     QUANTITY: body.quantity,
                     HECTARES: body.hectares,
                     SHOW: body.show,
+                    PASSWORD_QRCODE: passwordQrcode,
                     createdAt: new Date(),
                     updatedAt: new Date()
                 }
@@ -205,6 +220,8 @@ const productServices = {
                 return log
             }
 
+            console.log(body);
+
             const data = await coreModels.inforCompany.update(
                 {
                     INFORMATION_CODE: body.inforCode,
@@ -245,27 +262,36 @@ const productServices = {
 
     //public 
 
-    getCertificateCode: async (certificateCode) => {
+    getCertificateCode: async (certificateCode, passwordQrcode) => {
         let log = {
             status: 0,
             code: 204,
             msg: 'error',
             data: null
         };
-        if(!certificateCode) return
+        if(!certificateCode || !passwordQrcode) return
         try {
+            let checkPassword = await coreModels.inforCompany.count({
+                where: {
+                    PASSWORD_QRCODE: passwordQrcode,
+                    CERTIFICATE_CODE: certificateCode
+                }
+            })
+            if(checkPassword == 0){
+                log.code = 201;
+                log.msg = 'Password not found code not exits';
+                return log
+            }
             let total = await coreModels.inforCompany.count({
                 where: {
                     CERTIFICATE_CODE: certificateCode
                 }
             })
             if(total == 0){
-                log.code = 201;
+                log.code = 202;
                 log.msg = 'Certificate code not exits';
                 return log
             }
-            
-
             data = await coreModels.inforCompany.findAll({
                 where: {
                     [Op.and]: {
@@ -288,6 +314,53 @@ const productServices = {
         } catch (error) {
             console.log(error);
             return log
+        }
+    },
+
+    resetPasswordQrcode: async(cerId) => {
+        let log = {
+            status: 0,
+            code: 204,
+            msg: 'error',
+            data: null
+        };
+        if(!cerId) return log
+        try {
+            var total = await coreModels.inforCompany.count({
+                where: {
+                    CERTIFICATE_CODE: cerId
+                }
+            })
+
+            if(total == 0){
+                log.code = 201;
+                log.msg = 'Certificate code not exits';
+                return log
+            }
+
+            let passwordQrcode =  "EFC" + await productServices.createPasswordQrcode(7);
+
+            console.log(passwordQrcode);
+            
+            const data = await coreModels.inforCompany.update(
+                {
+                    PASSWORD_QRCODE: passwordQrcode,
+                    updatedAt: new Date()
+                },
+                {
+                where: {
+                    CERTIFICATE_CODE: cerId
+                    }
+                })
+            if(data) {
+                log.status = 1;
+                log.code = 200;
+                log.msg = 'success';
+                log.data = passwordQrcode;
+            }
+            return log
+        } catch (error) {
+            return log;
         }
     },
 }

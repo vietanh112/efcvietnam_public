@@ -53,6 +53,9 @@ module.exports = {
             SHOW: {
                 type: Sequelize.INTEGER
             },
+            PASSWORD_QRCODE: {
+                type: Sequelize.STRING
+            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE

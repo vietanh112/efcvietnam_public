@@ -24,10 +24,10 @@ export const environment = {
           deleteCertificate: 'admin/certificate/delete-certificate/{CERTIFICATE_ID}',
           getCertificate: 'admin/certificate/get-certificate',
           updateCertificate: 'admin/certificate/update-certificate/{CERTIFICATE_ID}',
-          
+          resetPasswordQrcode: 'admin/certificate/reset-password-qrcode/{CERTIFICATE_ID}'
         },
         public: {
-          getCertificateCode: 'public/certificate/{CERTIFICATE_CODE}'
+          getCertificateCode: 'public/certificate/{CERTIFICATE_CODE}/{PASSWORD_QRCODE}'
         }
       }
   },

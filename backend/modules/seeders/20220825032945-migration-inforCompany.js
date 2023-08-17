@@ -29,6 +29,7 @@ module.exports = {
             QUANTITY: 'N/A',
             HECTARES: 'N/A',
             SHOW: 0,
+            HECTARES: 'EFC3010912',
             createdAt: new Date(),
             updatedAt: new Date(),
         },

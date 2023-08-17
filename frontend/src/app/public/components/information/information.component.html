@@ -2,16 +2,16 @@
     <nz-spin nzSimple [nzSize]="'large'"></nz-spin>
   </div>
 <div class="infor-content">
-    <!-- <div class="search">
+    <div class="search">
         <div class="form-group">
             <nz-input-group nzSearch [nzSize]="sizeSearch" [nzAddOnAfter]="suffixButton">
                 <input type="text" nz-input placeholder="Certificate No" [(ngModel)] = "certificateCode"/>
             </nz-input-group>
             <ng-template #suffixButton>
-            <button nz-button nzType="primary" [nzSize]="sizeSearch" nzSearch (click)="searchCertificate()">Tìm kiếm</button>
+                <button nz-button nzType="primary" [nzSize]="sizeSearch" nzSearch (click)="showModal()">Tìm kiếm</button>
             </ng-template>
         </div>
-    </div> -->
+    </div>
     <div class="infor-cer" *ngIf="statusSearch">
         <h1>CERTIFICATE</h1>
         <div class="main-infor">
@@ -83,4 +83,15 @@
         </div>
     </div>
     <nz-empty *ngIf="!statusSearch"></nz-empty>
+
+    <nz-modal [(nzVisible)]="isVisible" nzTitle="Nhập Password Qrcode" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()" footer=null>
+        <ng-container *nzModalContent>
+            <div class="form-group">
+                <nz-input-group nzSearch [nzSize]="sizeSearch">
+                    <input type="text" nz-input placeholder="Password Qrcode" [(ngModel)] = "passwordQrcode"/>
+                </nz-input-group>
+                <p style="color: crimson;" *ngIf="showValid1">Bạn phải nhập Password Qrcode</p>
+            </div>
+        </ng-container>
+    </nz-modal>
 </div>

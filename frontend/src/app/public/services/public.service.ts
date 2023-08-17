@@ -20,7 +20,7 @@ export class publicService {
 
         
 
-        getCertificateCode(certificateCode: any) {
+        getCertificateCode(certificateCode: any, passwordQrcode: any) {
             let options: any = {
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8'
@@ -28,6 +28,8 @@ export class publicService {
             };
             let path = this.apiServerPaths.public.getCertificateCode;
             path = path.replace('{CERTIFICATE_CODE}', String(certificateCode));
+            path = path.replace('{PASSWORD_QRCODE}', String(passwordQrcode));
+            
             return this.apiService.get(path, options, map((response: any) => {
                 if(response.code == 200 && response.status == 1) {
                     response.data = new CertificateModel(response.data)

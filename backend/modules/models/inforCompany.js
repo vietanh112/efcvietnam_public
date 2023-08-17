@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
         QUANTITY: DataTypes.STRING,
         HECTARES: DataTypes.STRING,
         SHOW: DataTypes.INTEGER,
+        PASSWORD_QRCODE: DataTypes.STRING,
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE,
     }, {

@@ -174,6 +174,8 @@ export class AdminCertificate implements OnInit, AfterViewInit {
             this.listCertificate = res.list;
             this.totalList = res.total;
         })
+        
+        
         const params = [];
         for (const i in queries) {
             if (queries[i] !== "") {

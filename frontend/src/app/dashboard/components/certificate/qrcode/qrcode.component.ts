@@ -2,6 +2,7 @@ import {Component, OnInit, AfterViewInit,Input, Output, EventEmitter, ElementRef
 import {ActivatedRoute, Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {environment} from "../../../../../environments/environment";
+import { adminService } from '../../../services/admin.service';
 
 
 
@@ -20,9 +21,12 @@ export class AdminCertificateModalQrcode implements OnInit, AfterViewInit {
     protected apiServerPaths = environment.apiServer.paths;
 
     url: string = `http://${environment.frontEnd.host}/information?id=`;
+    passwordQrcode: string = '';
     checkCopy: boolean = false;
+    checkCopy2: boolean = false;
+    checkReset: boolean = false;
 
-    constructor() {}
+    constructor(public productService: adminService,) {}
     ngOnInit(): void {
         
     }
@@ -43,6 +47,8 @@ export class AdminCertificateModalQrcode implements OnInit, AfterViewInit {
         this.url = `http://${environment.frontEnd.host}/information?id=`;
       }
       this.url = this.url + this.certificate.certificateCode;
+      this.passwordQrcode = this.certificate.passwordQrcode;
+      
     }
 
     saveAsImage() {
@@ -50,18 +56,26 @@ export class AdminCertificateModalQrcode implements OnInit, AfterViewInit {
         //@ts-ignore
         const parentElement = this.parent.qrcElement.nativeElement.querySelector("canvas").toDataURL("image/png");
 
-        // let parentElement
-    
         // converts base 64 encoded image to blobData
         let blobData = this.convertBase64ToBlob(parentElement);
     
-          const blob = new Blob([blobData], { type: "image/png" });
-          const url = window.URL.createObjectURL(blob);
-          // window.open(url);
-          const link = document.createElement('a');
-          link.href = url;
-          link.download = `Qrcode-${this.certificate.certificateCode}`;
-          link.click();
+        const blob = new Blob([blobData], { type: "image/png" });
+        const url = window.URL.createObjectURL(blob);
+        // window.open(url);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `Qrcode-${this.certificate.certificateCode}`;
+        link.click();
+      }
+
+      resetPasswordQrcode() {
+        this.checkReset = true;
+        this.productService.resetPasswordQrcode(this.certificate.certificateCode).subscribe((res: any) => {
+          if(res.status == 1 && res.code == 200) {
+            this.passwordQrcode = res.data
+          }
+          this.checkReset = false;
+        })
       }
     
       private convertBase64ToBlob(Base64Image: any) {
@@ -96,6 +110,24 @@ export class AdminCertificateModalQrcode implements OnInit, AfterViewInit {
         this.checkCopy = true;
         setTimeout(() => {
           this.checkCopy = false;
+        }, 2000);
+      }
+
+      copyUrl2(): void {
+        const selBox = document.createElement('textarea');
+        selBox.style.position = 'fixed';
+        selBox.style.left = '0';
+        selBox.style.top = '0';
+        selBox.style.opacity = '0';
+        selBox.value = this.passwordQrcode;
+        document.body.appendChild(selBox);
+        selBox.focus();
+        selBox.select();
+        document.execCommand('copy');
+        document.body.removeChild(selBox);
+        this.checkCopy2 = true;
+        setTimeout(() => {
+          this.checkCopy2 = false;
         }, 2000);
       }
 }

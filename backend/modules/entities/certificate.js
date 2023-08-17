@@ -16,6 +16,7 @@ class CertificateModel {
     quantity = null;
     hectares = null;
     show = 0;
+    passwordQrcode= null;
     createdAt = null;
     updatedAt = null;
     
@@ -37,6 +38,7 @@ class CertificateModel {
         this.quantity = data.QUANTITY ?? null;
         this.hectares = data.HECTARES ?? null;
         this.show = data.SHOW ?? null;
+        this.passwordQrcode = data.PASSWORD_QRCODE ?? null;
         this.createdAt = data.createdAt ?? null;
         this.updatedAt = data.updatedAt ?? null;
     }

@@ -49,6 +49,8 @@ export class adminService {
                     }
                     if(response.status == 1 && response.code == 200) {
                         if(response.data.certificate) {
+                            console.log(response.data.certificate);
+                            
                             response.data.certificate.forEach((item: any) => {
                                 rs.list.push(new CertificateModel(item));
                             });
@@ -84,6 +86,19 @@ export class adminService {
             path = path.replace('{CERTIFICATE_ID}', String(certificateId));
             return this.apiService.patch(path, options, map((response: any) => {
                 return response
+            }));
+        }
+
+        resetPasswordQrcode(cerId: any) {
+            let options: any = {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                }
+            };
+            let path = this.apiServerPaths.qrCode.resetPasswordQrcode;
+            path = path.replace('{CERTIFICATE_ID}', String(cerId));
+            return this.apiService.patch(path, options, map((response: any) => {
+                return response;
             }));
         }
 }

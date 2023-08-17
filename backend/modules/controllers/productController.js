@@ -86,7 +86,8 @@ module.exports = {
 
     getCertificateCode: async (req, res) => {
         const certificateCode = req.params.certificateCode;
-        const data = await productServices.getCertificateCode(certificateCode);
+        const passwordQrcode =  req.params.passwordQrcode;
+        const data = await productServices.getCertificateCode(certificateCode, passwordQrcode);
         let response = {
             status: 1,
             code: 200,
@@ -98,6 +99,24 @@ module.exports = {
         response.data = data.data;
         response.status = data.status;
         if (data.code == 400 ) {
+            response.data = null;
+        }
+        return res.json(response)
+    },
+
+    resetPasswordQrcode: async (req, res) => {
+        const cerId = req.params.certificateId;
+        const data = await productServices.resetPasswordQrcode(cerId);
+        let response = {
+            status: 1,
+            code: 200,
+            message: '',
+            data: 'Deleted'
+        }
+        response.code = data.code;
+        response.message = data.msg;
+        response.data = data.data;
+        if (data.code == 400) {
             response.data = null;
         }
         return res.json(response)

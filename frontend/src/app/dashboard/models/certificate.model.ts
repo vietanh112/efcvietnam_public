@@ -16,6 +16,7 @@ export class CertificateModel {
     quantity: string = '';
     hectares: string = '';
     show: number = 0;
+    passwordQrcode: string = '';
     createdAt: string = '';
     updatedAt: string = '';
     
@@ -37,6 +38,7 @@ export class CertificateModel {
         this.quantity = data.quantity ?? '';
         this.hectares = data.hectares ?? '';
         this.show = data.show ?? 0;
+        this.passwordQrcode = data.passwordQrcode ?? null;
         this.createdAt = data.createdAt ?? '';
         this.updatedAt = data.updatedAt ?? '';
     }

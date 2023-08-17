@@ -16,6 +16,7 @@ export class CertificateModel {
     quantity: string = '';
     hectares: string = '';
     show: number = 0;
+    passwordQrcode: string = '';
     createdAt: string = '';
     updatedAt: string = '';
     
