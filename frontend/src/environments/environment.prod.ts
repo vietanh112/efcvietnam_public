@@ -27,7 +27,8 @@ export const environment = {
           resetPasswordQrcode: 'admin/certificate/reset-password-qrcode/{CERTIFICATE_ID}'
         },
         public: {
-          getCertificateCode: 'public/certificate/{CERTIFICATE_CODE}/{PASSWORD_QRCODE}'
+          getCertificateCode: 'public/certificate/{CERTIFICATE_CODE}',
+          searchCertificateCode: 'public/certificate/{CERTIFICATE_CODE}/{PASSWORD_QRCODE}'
         }
       }
   },
