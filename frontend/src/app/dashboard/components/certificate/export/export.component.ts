@@ -82,7 +82,7 @@ export class AdminCertificateModalExport implements OnInit, AfterViewInit {
     }
  
     handleCancel(): void {
-        this.setOfCheckedId = new Set<number>();
+        this.unSelectedAll();
         this.checkVisibleExport = false;
         this.checkVisibleExportChange.emit(false);
     }
@@ -219,5 +219,9 @@ export class AdminCertificateModalExport implements OnInit, AfterViewInit {
     private saveExcelFile(buffer: any, fileName: string): void {
         const data: Blob = new Blob([buffer], {type: this.fileType});
         FileSaver.saveAs(data, fileName + this.fileExtension);
+    }
+
+    unSelectedAll() {
+        this.setOfCheckedId = new Set<number>();
     }
 }
