@@ -23,6 +23,7 @@ export const environment = {
           createCertificate: 'admin/certificate/create-certificate',
           deleteCertificate: 'admin/certificate/delete-certificate/{CERTIFICATE_ID}',
           getCertificate: 'admin/certificate/get-certificate',
+          getAllCertificate: 'admin/certificate/get-all-certificate',
           updateCertificate: 'admin/certificate/update-certificate/{CERTIFICATE_ID}',
           resetPasswordQrcode: 'admin/certificate/reset-password-qrcode/{CERTIFICATE_ID}'
         },
