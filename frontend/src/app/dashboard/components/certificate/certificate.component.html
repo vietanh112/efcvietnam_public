@@ -25,6 +25,7 @@
             </div>
           </div>
           <div>
+            <button style="margin-right: 0.5rem;" *ngIf="reponsive.create" nz-button [nzType]="'primary'" [nzSize]="sizeButton" (click)="exportModalCreate()"><span>Xuất Certificate</span></button>
             <button *ngIf="currentUser?.roleId < 3 && reponsive.create" nz-button [nzType]="'primary'" [nzSize]="sizeButton" (click)="showModalCreate()" nzDanger><span>Tạo mới Certificate</span></button>
             <button *ngIf="currentUser?.roleId < 3 && !reponsive.create" nz-button [nzType]="'primary'" [nzSize]="sizeButton" (click)="showModalCreate()" nzDanger><span nz-icon nzType="plus" nzTheme="outline"></span></button>
           </div>
@@ -87,3 +88,5 @@
   <admin-certificate-modal-create [(checkVisibleCreate)]=checkVisibleCreate (checkVisibleCreateChange) = "createCertificate($event)"></admin-certificate-modal-create>
   <admin-certificate-modal-update [(checkVisibleUpdate)]=checkVisibleUpdate (checkVisibleUpdateChange) = "updateCertificate($event)" [dataCertificate]=certificate></admin-certificate-modal-update>
   <admin-certificate-modal-qrcode [(checkVisibleQrcode)]=checkVisibleQrcode  [certificate]='certificate'></admin-certificate-modal-qrcode>
+
+  <admin-certificate-modal-export [(checkVisibleExport)]=checkVisibleExport></admin-certificate-modal-export>

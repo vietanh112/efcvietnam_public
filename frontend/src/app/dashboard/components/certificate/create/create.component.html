@@ -1,4 +1,4 @@
-<nz-modal  [nzWidth]="widthModal" [(nzVisible)]="checkVisibleCreate" nzClassName="modal-create-certificate"  nzTitle="Tạo mới Certificate" nzWidth="60%" (nzAfterOpen)="loadingOk()" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+<nz-modal  [nzWidth]="widthModal" [(nzVisible)]="checkVisibleCreate" nzClassName="modal-create-certificate"  nzTitle="Tạo mới Certificate" nzWidth="60%"  (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
     <ng-container *nzModalContent>
         <h2>Main INFORMATION</h2>
     <form action="" [formGroup] = 'createForm'>

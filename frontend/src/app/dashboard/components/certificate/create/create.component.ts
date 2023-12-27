@@ -149,11 +149,5 @@ export class AdminCertificateModalCreate implements OnInit, AfterViewInit {
             return 
         })
     }
-
-    
-
-    loadingOk() {
-        let queries = {}
-    }
     
 }

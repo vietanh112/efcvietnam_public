@@ -42,7 +42,6 @@ const productServices = {
 
             let passwordQrcode =  "EFC" + await productServices.createPasswordQrcode(7);
 
-            console.log(passwordQrcode);
             const data = await coreModels.inforCompany.create(
                 {
                     INFORMATION_CODE: body.inforCode,
@@ -220,8 +219,6 @@ const productServices = {
                 return log
             }
 
-            console.log(body);
-
             const data = await coreModels.inforCompany.update(
                 {
                     INFORMATION_CODE: body.inforCode,
@@ -317,6 +314,39 @@ const productServices = {
         }
     },
 
+    getAllCertificate: async () => {
+        let log = {
+            status: 0,
+            code: 204,
+            data: {
+                certificate: [],
+                total: 0
+            }
+        };
+        try {
+            data = await coreModels.inforCompany.findAll({
+                order: [['createdAt', 'DESC']],
+            });
+            array = data;
+            for (let i = 0; i < array.length; i++) {
+                log.data.certificate.push(new CertificateModel(array[i].dataValues))
+            }
+
+            if(data) {
+                log.data.total = data.length;
+            }
+
+            if(data.length > 0) {
+                log.status = 1;
+                log.code = 200;
+            }
+            return log
+        } catch (error) {
+            console.log(error);
+            return log
+        }
+    },
+
     resetPasswordQrcode: async(cerId) => {
         let log = {
             status: 0,
@@ -339,8 +369,6 @@ const productServices = {
             }
 
             let passwordQrcode =  "EFC" + await productServices.createPasswordQrcode(7);
-
-            console.log(passwordQrcode);
             
             const data = await coreModels.inforCompany.update(
                 {
@@ -384,7 +412,6 @@ const productServices = {
                 log.msg = 'Password not found code not exits';
                 return log
             }
-            console.log(passwordQrcode);
             let total = await coreModels.inforCompany.count({
                 where: {
                     CERTIFICATE_CODE: certificateCode

@@ -11,6 +11,7 @@ import {AdminCertificateModalInfor} from './components/certificate/infor/infor.c
 import {AdminCertificateModalUpdate} from './components/certificate/update/update.component';
 import {AdminCertificateModalCreate} from './components/certificate/create/create.component';
 import {AdminCertificateModalQrcode} from './components/certificate/qrcode/qrcode.component';
+import {AdminCertificateModalExport} from './components/certificate/export/export.component';
 
 //QR code
 import { QRCodeModule } from 'angularx-qrcode';
@@ -23,7 +24,8 @@ import { QRCodeModule } from 'angularx-qrcode';
         AdminCertificateModalInfor,
         AdminCertificateModalUpdate,
         AdminCertificateModalCreate,
-        AdminCertificateModalQrcode
+        AdminCertificateModalQrcode,
+        AdminCertificateModalExport
         
     ],
     imports: [

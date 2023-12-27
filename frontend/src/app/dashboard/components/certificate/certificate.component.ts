@@ -21,6 +21,7 @@ export class AdminCertificate implements OnInit, AfterViewInit {
     @Input() checkVisibleCreate: boolean = false;
     @Input() checkVisibleUpdate: boolean = false;
     @Input() checkVisibleQrcode: boolean = false;
+    @Input() checkVisibleExport: boolean = false;
     @Input() certificate: any = undefined;
     confirmModalDelete?: NzModalRef;
     searchValue = '';
@@ -155,6 +156,10 @@ export class AdminCertificate implements OnInit, AfterViewInit {
     showModalQrcode(data: any) {
         this.checkVisibleQrcode = true;
         this.certificate = data;
+    }
+
+    exportModalCreate() {
+        this.checkVisibleExport = true;
     }
 
     getList() {

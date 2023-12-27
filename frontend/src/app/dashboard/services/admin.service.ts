@@ -49,8 +49,6 @@ export class adminService {
                     }
                     if(response.status == 1 && response.code == 200) {
                         if(response.data.certificate) {
-                            console.log(response.data.certificate);
-                            
                             response.data.certificate.forEach((item: any) => {
                                 rs.list.push(new CertificateModel(item));
                             });
@@ -61,6 +59,25 @@ export class adminService {
                 })
             )  
         }
+
+    getAllCertificate() {
+        return this.apiService.get(this.apiServerPaths.qrCode.getAllCertificate, {}, map((response: any) => {
+                let rs: any = {
+                    total: 0,
+                    list: []
+                }
+                if(response.status == 1 && response.code == 200) {
+                    if(response.data.certificate) {
+                        response.data.certificate.forEach((item: any) => {
+                            rs.list.push(new CertificateModel(item));
+                        });
+                    }
+                    rs.total = response.data.total;
+                }
+                return rs;
+            })
+        )  
+    }
 
         deleteCertificate(cerId: any) {
             let options: any = {

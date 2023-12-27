@@ -90,7 +90,25 @@ module.exports = {
         let response = {
             status: 1,
             code: 200,
-            message: 'Created',
+            message: 'Get Certificate',
+            data: null
+        }
+        response.code = data.code;
+        response.message = data.msg;
+        response.data = data.data;
+        response.status = data.status;
+        if (data.code == 400 ) {
+            response.data = null;
+        }
+        return res.json(response)
+    },
+
+    getAllCertificate: async (req, res) => {
+        const data = await productServices.getAllCertificate();
+        let response = {
+            status: 1,
+            code: 200,
+            message: 'Get all Certificate',
             data: null
         }
         response.code = data.code;

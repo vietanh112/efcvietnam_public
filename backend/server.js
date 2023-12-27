@@ -78,6 +78,9 @@ app.route(`/admin/certificate/create-certificate`).post([], async(req, res) => {
 app.route(`/admin/certificate/get-certificate`).get([], async(req, res) => {
     return productController.getCertificate(req, res);
 })
+app.route(`/admin/certificate/get-all-certificate`).get([], async(req, res) => {
+    return productController.getAllCertificate(req, res);
+})
 app.route(`/admin/certificate/delete-certificate/:certificateId`).delete([], async(req, res) => {
     return productController.deleteCertificate(req, res);
 })
